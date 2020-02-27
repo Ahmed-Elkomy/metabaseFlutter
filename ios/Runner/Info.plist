@@ -39,8 +39,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>Need BLE permission</string>
     <key>NSBluetoothPeripheralUsageDescription</key>
@@ -51,5 +49,7 @@
     <string>Need Location permission</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>Need Location permission</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

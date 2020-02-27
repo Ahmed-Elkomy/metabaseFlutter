@@ -9,6 +9,7 @@ class BluetoothOffScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Bluetooth Adapter is ${state.toString().substring(15)}.");
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       body: Center(

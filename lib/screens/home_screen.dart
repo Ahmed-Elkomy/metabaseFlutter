@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_mbientlab/componants/bluetooth_off.dart';
 import 'package:flutter_mbientlab/componants/scan_result_tile.dart';
 
 import 'device_screen.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    print("Home Screen initState method");
     super.initState();
     //Initialize object from FlutterBlue
     try {
@@ -32,6 +34,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Home Screen build method");
+    return StreamBuilder<BluetoothState>(
+        stream: FlutterBlue.instance.state,
+        initialData: BluetoothState.unknown,
+        builder: (c, snapshot) {
+          print("A Sanpshot from the BluetoothState is retrivied");
+          final state = snapshot.data;
+          print('The bluetooth status is $state');
+          if (state == BluetoothState.on) {
+            print("The home screen scafold will be executed");
+            return homeBuildScaffold(context);
+          } else {
+            print("The BluetoothOffScreen will be executed");
+            return BluetoothOffScreen(state: state);
+          }
+        });
+  }
+
+  Scaffold homeBuildScaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -77,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: StreamBuilder<List<ScanResult>>(
                   stream: flutterBlue.scanResults,
                   initialData: [],
-                  builder: (c, snapshot) => Column(
+                  builder: (c, snapshot) => ListView(
                     children: snapshot.data
                         .map(
                           (scanResult) => ScanResultTile(
